@@ -10,6 +10,7 @@ const addNewUser = async (req, res) => {
     });
   }
 
+  
   try {
     const query = `INSERT INTO "user" (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
 
