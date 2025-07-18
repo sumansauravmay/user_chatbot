@@ -1,20 +1,20 @@
-const { connection } = require("../../config/db");
+const { connection } = require("../../../config/db");
 
 const addNewUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, contactnumber } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !contactnumber) {
     return res.status(400).json({
       success: false,
-      message: "name, email and password are required",
+      message: "All fields are required",
     });
   }
 
   
   try {
-    const query = `INSERT INTO "user" (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
+    const query = `INSERT INTO "user" (name, email, password, contactnumber) VALUES ($1, $2, $3, $4) RETURNING *`;
 
-    const values = [name, email, password];
+    const values = [name, email, password, contactnumber];
     const result = await connection.query(query, values);
 
     return res.status(201).json({
